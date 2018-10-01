@@ -5,7 +5,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
 using System.Reflection;
-using CalculadorDeJurosApi.Helpers;
+using CalculadorDeJurosApi.Filters;
 
 namespace CalculadorDeJurosApi
 {
@@ -39,7 +39,7 @@ namespace CalculadorDeJurosApi
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
-                c.OperationFilter<FormateComentariosXml>();
+                c.OperationFilter<FormateComentariosXmlFilter>();
             });
         }
 

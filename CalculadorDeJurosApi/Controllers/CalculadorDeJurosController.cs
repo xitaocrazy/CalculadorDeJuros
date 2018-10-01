@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CalculadorDeJurosApi.Attributes;
+using Microsoft.AspNetCore.Mvc;
 using System;
 
 namespace CalculadorDeJurosApi.Controllers
@@ -15,13 +16,13 @@ namespace CalculadorDeJurosApi.Controllers
         /// Exemplo de requisição:
         ///     POST /CalculadorDeJuros/calculajuros?<paramref name="valorInicial"/>=100&amp;<paramref name="meses"/>=5
         /// </remarks>
-        /// <param name="valorInicial">Valor base ao qual será aplicado o juros ao longo do tempo.</param>
-        /// <param name="meses">Tempo em mêses para o cálculo do juros.</param>
+        /// <param name="valorInicial">[Required]Valor base ao qual será aplicado o juros ao longo do tempo.</param>
+        /// <param name="meses">[Required]Tempo em mêses para o cálculo do juros.</param>
         /// <returns>Valor final calculado.</returns>  
-        /// <response code="200">Retorna quando o valor é calculado com sucesso.</response>         
+        /// <response code="200">Retorna quando o valor é calculado com sucesso.</response>          
         [HttpPost]
         [ProducesResponseType(200)]
-        public ActionResult<decimal> CalculaJuros([FromQuery] decimal valorInicial, [FromQuery] int meses)
+        public ActionResult<decimal> CalculaJuros([RequiredFromQueryAttribute] decimal valorInicial, [RequiredFromQueryAttribute] int meses)
         {
             return 200;
         }
@@ -34,8 +35,9 @@ namespace CalculadorDeJurosApi.Controllers
         ///     GET /CalculadorDeJuros/showmethecode
         /// </remarks>
         /// <returns>Endereço do projeto no GitHub.</returns>  
-        /// <response code="200">Retorna quando o endereço é retornado com sucesso.</response>    
+        /// <response code="200">Retorna quando o endereço é retornado com sucesso.</response> 
         [HttpGet]
+        [ProducesResponseType(200)]
         public ActionResult<string> ShowMeTheCode() => "em breve";
     }
 }
