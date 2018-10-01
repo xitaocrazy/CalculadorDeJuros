@@ -9,9 +9,10 @@ namespace CalculadorDeJurosApi.Attributes
     {
         public void Apply(ParameterModel parameter)
         {
-            if (parameter.Action.Selectors != null && parameter.Action.Selectors.Any())
+            if (parameter.Action?.Selectors?.Any() ?? false)
             {
-                parameter.Action.Selectors.Last().ActionConstraints.Add(new RequiredFromQueryActionConstraint(parameter.BindingInfo?.BinderModelName ?? parameter.ParameterName));
+                var restricao = new RequiredFromQueryActionConstraint(parameter.BindingInfo?.BinderModelName ?? parameter.ParameterName);
+                parameter.Action.Selectors.Last().ActionConstraints.Add(restricao);
             }
         }
     }
