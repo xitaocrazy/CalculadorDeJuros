@@ -6,6 +6,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using CalculadorDeJurosApi.Filters;
+using CalculadorDeJurosApi.Services;
 
 namespace CalculadorDeJurosApi
 {
@@ -15,6 +16,8 @@ namespace CalculadorDeJurosApi
         {
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            
+            services.AddTransient<ICalculadorDeJuros, CalculadorDeJurosService>();
 
             services.AddSwaggerGen(c =>
             {

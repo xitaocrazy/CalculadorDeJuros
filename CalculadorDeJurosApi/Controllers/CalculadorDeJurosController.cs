@@ -1,6 +1,6 @@
 ﻿using CalculadorDeJurosApi.Attributes;
+using CalculadorDeJurosApi.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace CalculadorDeJurosApi.Controllers
 {
@@ -9,6 +9,12 @@ namespace CalculadorDeJurosApi.Controllers
     [ApiController]
     public class CalculadorDeJurosController : ControllerBase
     {
+        private ICalculadorDeJuros _calculadorDeJuros;
+
+        public CalculadorDeJurosController(ICalculadorDeJuros calculadorDeJuros){
+            _calculadorDeJuros = calculadorDeJuros;
+        }
+
         /// <summary>
         /// Calcula o valor final após aplicar a taxa de juros ao longo do tempo.
         /// </summary>
