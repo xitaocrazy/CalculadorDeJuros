@@ -24,23 +24,77 @@ namespace CalculadorDeJurosApi.Filters
             ConfigureParametrosDaOperacao(operation);
         }
 
-        private string FormateTexto(string text)
+        private string FormateTexto(string texto)
         {
-            if (text == null) {
+            if (texto == null) {
                 return null;
             }
-
+            
             try{
-                var resultString = Regex.Replace(text, @"(^[ \t]+)(?![^<]*>|[^>]*<\/)", "", RegexOptions.Multiline);
-                return resultString;
+                var textoFormatado = RemovaEspacosDoInicio(texto);
+                textoFormatado = RemovaTagsDeComentario(textoFormatado);
+                textoFormatado = FormateBlocosPreFormatados(textoFormatado);
+                return textoFormatado;
             }
             catch
             {
-                return text;
+                return texto;
             }
         }
 
-        private void ConfigureParametrosDaOperacao(Operation operation){
+        private string RemovaEspacosDoInicio(string texto)
+        {
+            var textoSemEspacosNoInicio = Regex.Replace(texto, @"(^[ \t]+)(?![^<]*>|[^>]*<\/)", string.Empty, RegexOptions.Multiline);            
+            return textoSemEspacosNoInicio;
+        }
+
+        private string RemovaTagsDeComentario(string texto)
+        {
+            var textoFormatado = Regex.Replace(texto, @"<!--", string.Empty, RegexOptions.Multiline);
+            textoFormatado = Regex.Replace(textoFormatado, @"-->", string.Empty, RegexOptions.Multiline);
+            return textoFormatado;
+        }
+
+        private string FormateBlocosPreFormatados(string texto)
+        {
+            const string pattern = @"<pre\b[^>]*>(.*?)</pre>";
+            foreach (Match match in Regex.Matches(texto, pattern, RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Multiline ))
+            {
+                var blocoFormatado = FormateBlocoPreFormatado(match.Value);
+                texto = texto.Replace(match.Value, blocoFormatado);
+            }
+            return texto;
+        }
+
+        private string FormateBlocoPreFormatado(string blocoPreFormatado)
+        {
+            var linhas = blocoPreFormatado.Split('\n');
+            if (linhas.Length < 2)
+            {
+                return blocoPreFormatado;
+            }
+            else
+            {
+                var primeiraLinha = linhas[1];
+                var linhaSemTabInicial = primeiraLinha.TrimStart(' ', '\t');
+                var padding = primeiraLinha.Length - linhaSemTabInicial.Length;
+                RemovaPadding(linhas, padding);
+                var formattedPreBlock = string.Join("", linhas);
+                return formattedPreBlock; 
+            }
+
+        }
+
+        private void RemovaPadding(string[] linhas, int padding)
+        {
+            for (int i = 1; i < linhas.Length-1; i++)
+            {
+                linhas[i] = linhas[i].Substring(padding);
+            }
+        }
+
+        private void ConfigureParametrosDaOperacao(Operation operation)
+        {
             const string req = "[Required]";
             if (operation.Parameters == null || !operation.Parameters.Any()){
                 return;

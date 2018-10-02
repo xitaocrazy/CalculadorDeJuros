@@ -1,7 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
+using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Primitives;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace CalculadorDeJurosApiTests.Helpers
 {
@@ -31,6 +37,42 @@ namespace CalculadorDeJurosApiTests.Helpers
             var tipo = typeof(ClassTeste);
             var metodo = tipo.GetMethod("MetodoTeste");
             return metodo;
+        }
+
+        public static ActionConstraintContext GetActionConstraintContextParaTestes()
+        {
+            var httpContext = new DefaultHttpContext();
+            var routeContext= new RouteContext(httpContext);
+            var contexto = new ActionConstraintContext()
+            {
+                RouteContext = routeContext
+            };            
+            
+            return contexto;
+        }
+
+        public static void SetQueryToActionConstraintContext(ActionConstraintContext contexto, Dictionary<string,StringValues> dicionario)
+        {
+            var query = new QueryCollection(dicionario);
+            contexto.RouteContext.HttpContext.Request.Query = query;
+        }
+
+        public static Operation GetNewOperation(string resumo, string descricao)
+        {
+            return new Operation 
+            {
+                Summary = resumo,
+                Description = descricao,
+                Parameters = new List<IParameter>()
+                {
+                    new BodyParameter(){
+                        Description = "[Required]Este é obrigatório"
+                    },
+                    new BodyParameter(){
+                        Description = "Este não é obrigatório"
+                    }
+                }
+            };
         }
 
         private class ClassTeste 

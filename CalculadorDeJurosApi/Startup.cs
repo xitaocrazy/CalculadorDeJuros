@@ -34,7 +34,7 @@ namespace CalculadorDeJurosApi
                     },
                     License = new License
                     {
-                        Name = "Use under MIT",
+                        Name = "MIT",
                         Url = "https://opensource.org/licenses/MIT"
                     }
                 });

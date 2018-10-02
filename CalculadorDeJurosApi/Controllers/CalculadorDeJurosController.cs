@@ -20,7 +20,11 @@ namespace CalculadorDeJurosApi.Controllers
         /// </summary>
         /// <remarks>
         /// Exemplo de requisição:
-        ///     POST /CalculadorDeJuros/calculajuros?<paramref name="valorInicial"/>=100&amp;<paramref name="meses"/>=5
+        /// <!-- 
+        /// <pre>
+        ///     POST /CalculadorDeJuros/calculajuros?<paramref name="valorInicial"/>=100&<paramref name="meses"/>=5
+        /// </pre>
+        /// -->
         /// </remarks>
         /// <param name="valorInicial">[Required]Valor base ao qual será aplicado o juros ao longo do tempo.</param>
         /// <param name="meses">[Required]Tempo em mêses para o cálculo do juros.</param>
@@ -38,7 +42,11 @@ namespace CalculadorDeJurosApi.Controllers
         /// </summary>
         /// <remarks>
         /// Exemplo de requisição:
+        /// <!-- 
+        /// <pre>
         ///     GET /CalculadorDeJuros/showmethecode
+        /// </pre>
+        /// -->
         /// </remarks>
         /// <returns>Endereço do projeto no GitHub.</returns>  
         /// <response code="200">Retorna quando o endereço é retornado com sucesso.</response> 
