@@ -1,18 +1,19 @@
 using Xunit;
-using Swashbuckle.AspNetCore.Swagger;
 using CalculadorDeJurosApi.Filters;
-using System.Collections.Generic;
 using CalculadorDeJurosApiTests.Helpers;
 
 namespace CalculadorDeJurosApiTests.Filters
-{           
+{
     public class FormateComentariosXmlFilterTEsts 
     {
-        const string textoSemFormatacao = "Exemplo de requisição:\r\n<!-- \r\n<pre>\r\n    Isso \"aqui\" é um texto de teste\r\n    {\r\n        deve manter a formatação e remover as tags esperadas.\r\n    }\r\n</pre>\r\n-->";
-        const string textoFormatado = "Exemplo de requisição:\r\n \r\n<pre>\rIsso \"aqui\" é um texto de teste\r{\r    deve manter a formatação e remover as tags esperadas.\r}\r</pre>\r\n";
+        const string _textoSemFormatacao = "Exemplo de requisição:\r\n<!-- \r\n<pre>\r\n    Isso \"aqui\" é um texto de teste\r\n    {\r\n        deve manter a formatação e remover as tags esperadas.\r\n    }\r\n</pre>\r\n-->";
+        const string _textoFormatado = "Exemplo de requisição:\r\n \r\n<pre>\rIsso \"aqui\" é um texto de teste\r{\r    deve manter a formatação e remover as tags esperadas.\r}\r</pre>\r\n";
      
-        [Fact]
-        public void Apply_1_deve_formatar_a_descricao_e_o_resumo_quando_possuir_caracteres_especiais()
+        [Theory]        
+        [InlineData(_textoSemFormatacao, _textoFormatado)]
+        [InlineData(null, null)]
+        [InlineData("", "")]
+        public void Apply_1_deve_formatar_a_descricao_e_o_resumo_quando_possuir_texto_pre_formatado(string textoSemFormatacao, string textoFormatado)
         {
             var operacao = TestHelper.GetNewOperation(textoSemFormatacao, textoSemFormatacao);            
             var filtro = new FormateComentariosXmlFilter();
@@ -26,7 +27,7 @@ namespace CalculadorDeJurosApiTests.Filters
         [Fact]
         public void Apply_1_deve_setar_como_required_parametros_com_tag_required()
         {
-            var operacao = TestHelper.GetNewOperation(textoSemFormatacao, textoSemFormatacao);            
+            var operacao = TestHelper.GetNewOperation(_textoSemFormatacao, _textoSemFormatacao);            
             var filtro = new FormateComentariosXmlFilter();
 
             filtro.Apply(operacao, null, null);
@@ -35,8 +36,11 @@ namespace CalculadorDeJurosApiTests.Filters
             Assert.Equal(operacao.Parameters[1].Required, false);
         }
 
-        [Fact]
-        public void Apply_2_deve_formatar_a_descricao_e_o_resumo_quando_possuir_caracteres_especiais()
+        [Theory]        
+        [InlineData(_textoSemFormatacao, _textoFormatado)]
+        [InlineData(null, null)]
+        [InlineData("", "")]
+        public void Apply_2_deve_formatar_a_descricao_e_o_resumo_quando_possuir_texto_pre_formatado(string textoSemFormatacao, string textoFormatado)
         {
             var operacao = TestHelper.GetNewOperation(textoSemFormatacao, textoSemFormatacao);            
             var filtro = new FormateComentariosXmlFilter();
@@ -50,7 +54,7 @@ namespace CalculadorDeJurosApiTests.Filters
         [Fact]
         public void Apply_2_deve_setar_como_required_parametros_com_tag_required()
         {
-            var operacao = TestHelper.GetNewOperation(textoSemFormatacao, textoSemFormatacao);            
+            var operacao = TestHelper.GetNewOperation(_textoSemFormatacao, _textoSemFormatacao);            
             var filtro = new FormateComentariosXmlFilter();
 
             filtro.Apply(operacao, null);

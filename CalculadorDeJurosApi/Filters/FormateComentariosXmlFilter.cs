@@ -26,8 +26,8 @@ namespace CalculadorDeJurosApi.Filters
 
         private string FormateTexto(string texto)
         {
-            if (texto == null) {
-                return null;
+            if (string.IsNullOrEmpty(texto)) {
+                return texto;
             }
             
             try{
@@ -44,21 +44,24 @@ namespace CalculadorDeJurosApi.Filters
 
         private string RemovaEspacosDoInicio(string texto)
         {
-            var textoSemEspacosNoInicio = Regex.Replace(texto, @"(^[ \t]+)(?![^<]*>|[^>]*<\/)", string.Empty, RegexOptions.Multiline);            
+            const string padrao = @"(^[ \t]+)(?![^<]*>|[^>]*<\/)";
+            var textoSemEspacosNoInicio = Regex.Replace(texto, padrao, string.Empty, RegexOptions.Multiline);            
             return textoSemEspacosNoInicio;
         }
 
         private string RemovaTagsDeComentario(string texto)
         {
-            var textoFormatado = Regex.Replace(texto, @"<!--", string.Empty, RegexOptions.Multiline);
-            textoFormatado = Regex.Replace(textoFormatado, @"-->", string.Empty, RegexOptions.Multiline);
+            const string inicioComentario = @"<!--";
+            const string fimComentario = @"-->";
+            var textoFormatado = Regex.Replace(texto, inicioComentario, string.Empty, RegexOptions.Multiline);
+            textoFormatado = Regex.Replace(textoFormatado, fimComentario, string.Empty, RegexOptions.Multiline);
             return textoFormatado;
         }
 
         private string FormateBlocosPreFormatados(string texto)
         {
-            const string pattern = @"<pre\b[^>]*>(.*?)</pre>";
-            foreach (Match match in Regex.Matches(texto, pattern, RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Multiline ))
+            const string padrao = @"<pre\b[^>]*>(.*?)</pre>";
+            foreach (Match match in Regex.Matches(texto, padrao, RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Multiline ))
             {
                 var blocoFormatado = FormateBlocoPreFormatado(match.Value);
                 texto = texto.Replace(match.Value, blocoFormatado);
@@ -79,7 +82,7 @@ namespace CalculadorDeJurosApi.Filters
                 var linhaSemTabInicial = primeiraLinha.TrimStart(' ', '\t');
                 var padding = primeiraLinha.Length - linhaSemTabInicial.Length;
                 RemovaPadding(linhas, padding);
-                var formattedPreBlock = string.Join("", linhas);
+                var formattedPreBlock = string.Join(string.Empty, linhas);
                 return formattedPreBlock; 
             }
 

@@ -1,5 +1,7 @@
-﻿using CalculadorDeJurosApi.Attributes;
+﻿using System;
+using CalculadorDeJurosApi.Attributes;
 using CalculadorDeJurosApi.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CalculadorDeJurosApi.Controllers
@@ -29,12 +31,23 @@ namespace CalculadorDeJurosApi.Controllers
         /// <param name="valorInicial">[Required]Valor base ao qual será aplicado o juros ao longo do tempo.</param>
         /// <param name="meses">[Required]Tempo em mêses para o cálculo do juros.</param>
         /// <returns>Valor final calculado.</returns>  
-        /// <response code="200">Retorna quando o valor é calculado com sucesso.</response>          
+        /// <response code="200">Retorna quando o valor é calculado com sucesso.</response> 
+        /// <response code="404">Retorna quando o algum valor inválido é informado como parâmetro.</response> 
+        /// <response code="500">Retorna quando ocorre algum erro durante o cálculo.</response>          
         [HttpPost]
         [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
         public ActionResult<decimal> CalculaJuros([RequiredFromQueryAttribute] decimal valorInicial, [RequiredFromQueryAttribute] int meses)
         {
-            return 200;
+            try
+            {
+                return Ok(_calculadorDeJuros.CalculeJuros(valorInicial, meses));
+            }
+            catch(Exception ex)
+            {                
+                return  StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
         /// <summary>
@@ -52,6 +65,6 @@ namespace CalculadorDeJurosApi.Controllers
         /// <response code="200">Retorna quando o endereço é retornado com sucesso.</response> 
         [HttpGet]
         [ProducesResponseType(200)]
-        public ActionResult<string> ShowMeTheCode() => "em breve";
+        public ActionResult<string> ShowMeTheCode() => "https://github.com/xitaocrazy/CalculadorDeJuros";
     }
 }
