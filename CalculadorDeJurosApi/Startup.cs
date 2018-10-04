@@ -7,17 +7,30 @@ using System.IO;
 using System.Reflection;
 using CalculadorDeJurosApi.Filters;
 using CalculadorDeJurosApi.Services;
+using CalculadorDeJurosApi.Wrappers;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using NLog;
+using CalculadorDeJurosApi.Extensions;
 
 namespace CalculadorDeJurosApi
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
+        public Startup(IConfiguration configuration)
+        {
+            LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/CalculadorDeJurosApi/nlog.config"));
+            Configuration = configuration;
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             
             services.AddTransient<ICalculadorDeJuros, CalculadorDeJurosService>();
+            services.AddSingleton<ILoggerManager, LoggerManager>();
 
             services.AddSwaggerGen(c =>
             {
@@ -48,6 +61,8 @@ namespace CalculadorDeJurosApi
 
         public void Configure(IApplicationBuilder app)
         {
+            app.ConfigureCustomExceptionMiddleware();
+            
             app.UseStaticFiles();
 
             app.UseSwagger();

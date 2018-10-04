@@ -1,12 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Primitives;
+using NLog;
+using NLog.Config;
+using NLog.Targets;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace CalculadorDeJurosApiTests.Helpers
@@ -73,13 +77,20 @@ namespace CalculadorDeJurosApiTests.Helpers
                     }
                 }
             };
-        }
+        }        
+
 
         private class ClassTeste 
         {
             public decimal MetodoTeste(decimal parametroTeste) {
                 return 200;
             }
+        }
+
+
+        public interface DelegateMock
+        {
+            Task RequestDelegate(HttpContext context);
         }
     }    
 }

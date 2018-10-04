@@ -18,6 +18,7 @@ namespace CalculadorDeJurosApi.Filters
             ConfigureCamposDaOperacao(operation);
         }
 
+
         private void ConfigureCamposDaOperacao(Operation operation){
             operation.Description = FormateTexto(operation.Description);
             operation.Summary = FormateTexto(operation.Summary);

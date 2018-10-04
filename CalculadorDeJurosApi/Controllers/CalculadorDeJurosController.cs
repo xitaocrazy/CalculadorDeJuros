@@ -1,6 +1,7 @@
 ﻿using System;
 using CalculadorDeJurosApi.Attributes;
 using CalculadorDeJurosApi.Services;
+using CalculadorDeJurosApi.Wrappers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,9 +13,12 @@ namespace CalculadorDeJurosApi.Controllers
     public class CalculadorDeJurosController : ControllerBase
     {
         private ICalculadorDeJuros _calculadorDeJuros;
+        private ILoggerManager _logger;
 
-        public CalculadorDeJurosController(ICalculadorDeJuros calculadorDeJuros){
+
+        public CalculadorDeJurosController(ICalculadorDeJuros calculadorDeJuros, ILoggerManager logger){
             _calculadorDeJuros = calculadorDeJuros;
+            _logger = logger;
         }
 
         /// <summary>
@@ -40,14 +44,15 @@ namespace CalculadorDeJurosApi.Controllers
         [ProducesResponseType(500)]
         public ActionResult<decimal> CalculaJuros([RequiredFromQueryAttribute] decimal valorInicial, [RequiredFromQueryAttribute] int meses)
         {
-            try
-            {
-                return Ok(_calculadorDeJuros.CalculeJuros(valorInicial, meses));
-            }
-            catch(Exception ex)
-            {                
-                return  StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
+            var mensagem = $"Recebido pedido de cálculo de juros com valor inicial = {valorInicial} e quantidade de meses = {meses}.";
+            _logger.LogInfo(mensagem);
+
+            var valorFinal = _calculadorDeJuros.CalculeJuros(valorInicial, meses);
+            
+            mensagem = $"Valor final após aplicação dos juros = {valorFinal}.";
+            _logger.LogInfo(mensagem);
+            
+            return Ok(valorFinal);
         }
 
         /// <summary>

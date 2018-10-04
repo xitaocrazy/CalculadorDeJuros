@@ -6,6 +6,7 @@ namespace CalculadorDeJurosApi.Constraints
     {
         private readonly string _parameter;
 
+
         public RequiredFromQueryActionConstraint(string parameter)
         {
             _parameter = parameter;

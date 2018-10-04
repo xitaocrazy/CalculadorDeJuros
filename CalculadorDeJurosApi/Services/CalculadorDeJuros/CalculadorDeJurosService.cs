@@ -8,6 +8,7 @@ namespace CalculadorDeJurosApi.Services
         const double juros = 1.01;
         const int precisao = 2;
         
+        
         public decimal CalculeJuros(decimal valorInicial, int meses)
         {            
             var jurosAoLongoDoPeriodo = (decimal) Math.Pow(juros, meses);

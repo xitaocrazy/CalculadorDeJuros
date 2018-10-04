@@ -6,9 +6,10 @@ namespace CalculadorDeJurosApiTests.Filters
 {
     public class FormateComentariosXmlFilterTEsts 
     {
-        const string _textoSemFormatacao = "Exemplo de requisição:\r\n<!-- \r\n<pre>\r\n    Isso \"aqui\" é um texto de teste\r\n    {\r\n        deve manter a formatação e remover as tags esperadas.\r\n    }\r\n</pre>\r\n-->";
-        const string _textoFormatado = "Exemplo de requisição:\r\n \r\n<pre>\rIsso \"aqui\" é um texto de teste\r{\r    deve manter a formatação e remover as tags esperadas.\r}\r</pre>\r\n";
+        private const string _textoSemFormatacao = "Exemplo de requisição:\r\n<!-- \r\n<pre>\r\n    Isso \"aqui\" é um texto de teste\r\n    {\r\n        deve manter a formatação e remover as tags esperadas.\r\n    }\r\n</pre>\r\n-->";
+        private const string _textoFormatado = "Exemplo de requisição:\r\n \r\n<pre>\rIsso \"aqui\" é um texto de teste\r{\r    deve manter a formatação e remover as tags esperadas.\r}\r</pre>\r\n";
      
+
         [Theory]        
         [InlineData(_textoSemFormatacao, _textoFormatado)]
         [InlineData(null, null)]
