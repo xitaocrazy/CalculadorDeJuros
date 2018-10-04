@@ -33,8 +33,8 @@ namespace CalculadorDeJurosApiTests.Filters
 
             filtro.Apply(operacao, null, null);
 
-            Assert.Equal(operacao.Parameters[0].Required, true);
-            Assert.Equal(operacao.Parameters[1].Required, false);
+            Assert.Equal(true, operacao.Parameters[0].Required);
+            Assert.Equal(false, operacao.Parameters[1].Required);
         }
 
         [Theory]        
@@ -60,8 +60,8 @@ namespace CalculadorDeJurosApiTests.Filters
 
             filtro.Apply(operacao, null);
 
-            Assert.Equal(operacao.Parameters[0].Required, true);
-            Assert.Equal(operacao.Parameters[1].Required, false);
+            Assert.Equal(true, operacao.Parameters[0].Required);
+            Assert.Equal(false, operacao.Parameters[1].Required);
         }        
     }
 }

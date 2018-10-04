@@ -21,9 +21,9 @@ namespace CalculadorDeJurosApi
 
         public Startup(IConfiguration configuration)
         {
-            LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/CalculadorDeJurosApi/nlog.config"));
+            TenteLerConfiguracaoDoNlog();
             Configuration = configuration;
-        }
+        }        
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -74,6 +74,37 @@ namespace CalculadorDeJurosApi
             });
 
             app.UseMvc();
+        }
+
+
+        private void TenteLerConfiguracaoDoNlog()
+        {
+            if (!TenteLerDoDiretorioDaSolution())
+            {
+                TenteLerDoDiretorioDoProjeto();
+            }
+        }
+
+        private bool TenteLerDoDiretorioDaSolution()
+        {
+            var nlogConfigurationPath = String.Concat(Directory.GetCurrentDirectory(), "/CalculadorDeJurosApi/nlog.config");
+            if (File.Exists(nlogConfigurationPath))
+            {
+                LogManager.LoadConfiguration(nlogConfigurationPath);
+                return true;
+            }
+            return false;
+        }
+
+        private bool TenteLerDoDiretorioDoProjeto()
+        {
+            var nlogConfigurationPath = String.Concat(Directory.GetCurrentDirectory(), "/nlog.config");
+            if (File.Exists(nlogConfigurationPath))
+            {
+                LogManager.LoadConfiguration(nlogConfigurationPath);
+                return true;
+            }
+            return false;
         }
     }
 }

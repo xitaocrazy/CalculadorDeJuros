@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculadorDeJurosApi", "Cal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculadorDeJurosApiTests", "CalculadorDeJurosApiTests\CalculadorDeJurosApiTests.csproj", "{7034080F-097F-4BF7-ADCB-5944230AEDF7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculadorDeJurosApiIntegrationTests", "CalculadorDeJurosApiIntegrationTests\CalculadorDeJurosApiIntegrationTests.csproj", "{9A23B89D-66DA-4005-843C-53A9E36F1E19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +46,17 @@ Global
 		{7034080F-097F-4BF7-ADCB-5944230AEDF7}.Release|x64.Build.0 = Release|Any CPU
 		{7034080F-097F-4BF7-ADCB-5944230AEDF7}.Release|x86.ActiveCfg = Release|Any CPU
 		{7034080F-097F-4BF7-ADCB-5944230AEDF7}.Release|x86.Build.0 = Release|Any CPU
+		{9A23B89D-66DA-4005-843C-53A9E36F1E19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A23B89D-66DA-4005-843C-53A9E36F1E19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A23B89D-66DA-4005-843C-53A9E36F1E19}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9A23B89D-66DA-4005-843C-53A9E36F1E19}.Debug|x64.Build.0 = Debug|Any CPU
+		{9A23B89D-66DA-4005-843C-53A9E36F1E19}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9A23B89D-66DA-4005-843C-53A9E36F1E19}.Debug|x86.Build.0 = Debug|Any CPU
+		{9A23B89D-66DA-4005-843C-53A9E36F1E19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A23B89D-66DA-4005-843C-53A9E36F1E19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A23B89D-66DA-4005-843C-53A9E36F1E19}.Release|x64.ActiveCfg = Release|Any CPU
+		{9A23B89D-66DA-4005-843C-53A9E36F1E19}.Release|x64.Build.0 = Release|Any CPU
+		{9A23B89D-66DA-4005-843C-53A9E36F1E19}.Release|x86.ActiveCfg = Release|Any CPU
+		{9A23B89D-66DA-4005-843C-53A9E36F1E19}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

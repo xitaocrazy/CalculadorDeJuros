@@ -1,3 +1,4 @@
 # Diretórios Ignorados
 bin/
 obj/
+internal_logs/
