@@ -42,4 +42,4 @@ Agora você já pode testar os serviços da aplicação.
 Daniel de Souza Martins - [Linkedin](https://www.linkedin.com/in/daniel-de-souza-martins/) - [GitHub](https://github.com/xitaocrazy).
 
 ## Licensa
-Este projeto está licenciado sob a licença MIT - veja o [https://github.com/xitaocrazy/CalculadorDeJuros/blob/master/LICENSE](arquivo de licença) para detalhes.
+Este projeto está licenciado sob a licença MIT - veja o  [arquivo de licença](https://github.com/xitaocrazy/CalculadorDeJuros/blob/master/LICENSE) para detalhes.
