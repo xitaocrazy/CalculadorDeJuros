@@ -20,9 +20,9 @@ O principal objetivo do projeto foi praticar alguns conceitos como:
 
  1. Acesse o diretório do projeto via prompt de comando. Ex: `cd D:\GitHub\CalculadorDeJuros\CalculadorDeJurosApi`;
  2. Execute o projeto com `dotnet run"`;
-![ExecutandoOProjeto](https://drive.google.com/open?id=1XpzIoJZz8xssufdrTbvb2_5n0bDNN5St)
+![executando_o_projeto](https://github.com/xitaocrazy/CalculadorDeJuros/blob/master/Imagens/executando_o_projeto.png)
  3. Acesse a URL http://localhost:5000/;
-![CalculadorDeJuros](https://drive.google.com/open?id=1NKBNrziZN798ghwwHo3Qf9eDXg1oey5D)
+![calculador_de_juros](https://github.com/xitaocrazy/CalculadorDeJuros/blob/master/Imagens/calculador_de_juros.png)
 
 Agora você já pode testar os serviços da aplicação.
 
@@ -30,13 +30,13 @@ Agora você já pode testar os serviços da aplicação.
 
  1. Acesse o diretório do projeto de testes unitários via prompt de comando. Ex: `cd D:\GitHub\CalculadorDeJuros\CalculadorDeJurosApiTests`;
  2. Execute o projeto com `dotnet test"`;
-![TestesUnitarios](https://drive.google.com/open?id=1CQ3rwD8MhLTj5GZtl61klR_X4439KL6s)
+![testes_unitarios](https://github.com/xitaocrazy/CalculadorDeJuros/blob/master/Imagens/testes_unitarios.png)
 
 ## Executando os testes de integração
 
  1. Acesse o diretório do projeto de testes de integração via prompt de comando. Ex: `cd D:\GitHub\CalculadorDeJuros\CalculadorDeJurosApiIntegrationTests`;
  2. Execute o projeto com `dotnet test"`;
-![TestesDeIntegracao](https://drive.google.com/open?id=1KMv4BMi72O3RTHud13CkAiwkFbqtoB_u)
+![testes_de_integracao](https://github.com/xitaocrazy/CalculadorDeJuros/blob/master/Imagens/testes_de_integracao.png)
 
 ## Autor
 Daniel de Souza Martins - [Linkedin](https://www.linkedin.com/in/daniel-de-souza-martins/) - [GitHub](https://github.com/xitaocrazy).
