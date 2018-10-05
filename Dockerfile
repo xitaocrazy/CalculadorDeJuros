@@ -1,18 +1,19 @@
-FROM microsoft/dotnet:2.1.403-sdk AS build
+FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
 LABEL maintainer="xitaocrazy"
-WORKDIR /
+WORKDIR /app
+EXPOSE 80
 
-# Copia todos os arquivos e faz o restore
-COPY / ./
-RUN dotnet restore
+FROM microsoft/dotnet:2.1.403-sdk-alpine3.7 AS build
+WORKDIR /src
+COPY . .
+RUN dotnet restore \
+    && dotnet build -c Release -o /app
 
-# Faz o release da API
-COPY CalculadorDeJurosApi/*.csproj ./CalculadorDeJurosApi/
-WORKDIR /CalculadorDeJurosApi
-RUN dotnet publish -c Release -o out
+FROM build AS publish
+WORKDIR /src
+RUN dotnet publish -c Release -o /app
 
-# Runtime container
-FROM microsoft/dotnet:2.1-runtime
-WORKDIR /
-COPY --from=build /CalculadorDeJurosApi/out .
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "CalculadorDeJurosApi.dll"]
